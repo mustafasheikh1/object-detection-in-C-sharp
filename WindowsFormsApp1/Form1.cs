@@ -75,7 +75,7 @@ namespace WindowsFormsApp1
             for (int j = 0; j < ItemList.Count; j++)
                 g.DrawRectangle(p, ItemList[j].x[0], ItemList[j].y[1], ItemList[j].x[2] - ItemList[j].x[0], ItemList[j].y[3] - ItemList[j].y[1]);
 
-            pictureBox1.Image.Save("C:\\Users\\musta\\Desktop\\result.png", System.Drawing.Imaging.ImageFormat.Png);
+            //pictureBox1.Image.Save("C:\\Users\\musta\\Desktop\\result.png", System.Drawing.Imaging.ImageFormat.Png);
             //bmp.Save("C:\\Users\\musta\\Desktop\\result.png", System.Drawing.Imaging.ImageFormat.Png);
         }
 
@@ -88,7 +88,7 @@ namespace WindowsFormsApp1
                 {
                     if (temp.GetPixel(w, h) == Color.Black || temp.GetPixel(w, h).R < meter)
                     {
-                        Console.WriteLine("W:"+w+"\tH:"+h);
+                        //Console.WriteLine("W:"+w+"\tH:"+h);
                         item  = this.pathFinder(w, h, temp);
                         flag = true;
                         break;
