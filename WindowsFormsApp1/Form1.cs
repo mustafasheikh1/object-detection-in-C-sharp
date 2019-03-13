@@ -42,7 +42,9 @@ namespace WindowsFormsApp1
             Bitmap bmp = new Bitmap(pictureBox1.Image);
             Bitmap temp = new Bitmap(pictureBox1.Image);
             Graphics g = pictureBox1.CreateGraphics();
-
+            /*
+            
+            */
             bool flag = true;
             //For detecting the item
             //and get the left most point
@@ -50,14 +52,11 @@ namespace WindowsFormsApp1
             while (flag)
             {
                 detectedItem x = itemDetector(temp);
-                /*if (i == 0)
-                {
-                    flag = false;
-                }*/
+                
                 if(x != null)
                 {
                     ItemList.Add(x);
-                    ItemList[0].toString();
+                    //ItemList[0].toString();
 
                     temp = this.eraser(ItemList[i].x[0], ItemList[i].y[1], ItemList[i].x[2] - ItemList[i].x[0], ItemList[i].y[3] - ItemList[i].y[1], bmp);
                 }
@@ -74,9 +73,9 @@ namespace WindowsFormsApp1
             Console.WriteLine("Lenght:\t" + ItemList.Count);
             for (int j = 0; j < ItemList.Count; j++)
                 g.DrawRectangle(p, ItemList[j].x[0], ItemList[j].y[1], ItemList[j].x[2] - ItemList[j].x[0], ItemList[j].y[3] - ItemList[j].y[1]);
-
-            //pictureBox1.Image.Save("C:\\Users\\musta\\Desktop\\result.png", System.Drawing.Imaging.ImageFormat.Png);
-            //bmp.Save("C:\\Users\\musta\\Desktop\\result.png", System.Drawing.Imaging.ImageFormat.Png);
+            
+            //pictureBox1.Image = temp;
+            //temp.Save("C:\\Users\\musta\\Desktop\\result.png", System.Drawing.Imaging.ImageFormat.Png);
         }
 
         private detectedItem itemDetector(Bitmap temp) {
@@ -295,7 +294,7 @@ namespace WindowsFormsApp1
                 
                 if (bmp.GetPixel(i,y-1) == Color.Black || bmp.GetPixel(i,y-1).R < meter)
                 {
-                    Console.WriteLine("error detected");
+                    //Console.WriteLine("error detected");
                     return true;
                 }
             }
@@ -329,7 +328,46 @@ namespace WindowsFormsApp1
             return false;
         }
 
-       
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Bitmap temp = new Bitmap(pictureBox1.Image);
+            for (int w = 0; w < temp.Width; w++)
+            {
+                for (int h = 0; h < temp.Height; h++)
+                {
+                    int total;
+                    int red = temp.GetPixel(w, h).R;
+                    int green = temp.GetPixel(w, h).G;
+                    int blue = temp.GetPixel(w, h).B;
+
+                    total = (red + green + blue) / 3;
+
+                    temp.SetPixel(w, h, Color.FromArgb(total, total, total));
+                }
+            }
+
+            for (int w = 0; w < temp.Width; w++)
+            {
+                for (int h = 0; h < temp.Height; h++)
+                {
+                    if (temp.GetPixel(w, h) == Color.Black || temp.GetPixel(w, h).R < 150)
+                    {
+                        temp.SetPixel(w, h, Color.Black);
+                    }
+                    else
+                    {
+                        temp.SetPixel(w, h, Color.White);
+                    }
+                }
+            }
+            //temp.Save("C:\\Users\\musta\\Desktop\\result1.png", System.Drawing.Imaging.ImageFormat.Png);
+            pictureBox1.Image = temp;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     class detectedItem
